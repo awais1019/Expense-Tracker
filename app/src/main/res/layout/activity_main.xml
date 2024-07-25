@@ -18,17 +18,18 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:navGraph="@navigation/main_nav_graph" />
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottomNav"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/dark_purple"
-        android:background="@drawable/background_gradient"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@color/nav_items_colors"
+        app:itemTextAppearanceInactive="@color/black"
+        app:itemTextAppearanceActiveBoldEnabled="true"
+        app:itemTextColor="@color/nav_items_colors"
+        app:itemActiveIndicatorStyle="@color/white"
         app:menu="@menu/bottom_nav"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

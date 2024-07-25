@@ -8,4 +8,11 @@
     <color name="dark_medium__purple">#a1a7f5</color>
     <color name="dark_medium2__purple">#b1bbf9</color>
     <color name="light2_purple">#e4d6f0</color>
+    <color name="light_grey">#F0F0F0</color>
+
+    <color name="cardBackgroundColor">#F9F9F9</color>
+    <!-- Primary Text Color -->
+    <color name="primaryTextColor">#333333</color>
+    <!-- Secondary Text Color -->
+    <color name="secondaryTextColor">#FF5722</color>
 </resources>

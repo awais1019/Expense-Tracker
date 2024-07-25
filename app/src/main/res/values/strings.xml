@@ -15,4 +15,5 @@
     <string name="username">Username</string>
     <string name="are_you_new_user_register">Are you new User? Register</string>
     <string name="login_title">Login To\nYour Account</string>
+    <string name="current_balance_text">Current Balance</string>
 </resources>

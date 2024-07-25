@@ -7,35 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.example.expensetracker.databinding.FragmentAuthBinding
 
 
 class AuthFragment : Fragment() {
 
-
+    lateinit var binding:FragmentAuthBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_auth, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val btn1=view.findViewById<Button>(R.id.loginFragment)
-        val btn2=view.findViewById<Button>(R.id.signupFragment)
-
-
-        btn1.setOnClickListener()
+    ): View {
+        binding=FragmentAuthBinding.inflate(inflater, container, false)
+        val navController=findNavController()
+        binding.btnLogin.setOnClickListener()
         {
-            findNavController().navigate(R.id.action_authFragment_to_loginFragment)
+          navController.navigate(R.id.action_authFragment_to_loginFragment2)
+        }
+        binding.btnSignup.setOnClickListener()
+        {
+            navController.navigate(R.id.action_authFragment_to_signupFragment2)
         }
 
-        btn2.setOnClickListener()
-        {
-            findNavController().navigate(R.id.action_authFragment_to_signupFragment)
-        }
+        return binding.root
     }
+
+
 
 
 

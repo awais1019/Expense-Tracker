@@ -7,4 +7,12 @@
     <string name="signup">SignUp</string>
     <string name="title">Expense Tracker</string>
     <string name="coins">coins</string>
+    <string name="create_account">Create Account</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="get_started">Get Started</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="username">Username</string>
+    <string name="are_you_new_user_register">Are you new User? Register</string>
+    <string name="login_title">Login To\nYour Account</string>
 </resources>

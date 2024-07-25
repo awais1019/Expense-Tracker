@@ -5,9 +5,8 @@
       android:startColor="@color/full_light_purple"
       android:centerColor="@color/medium_purple"
       android:endColor="@color/light2_purple"
-      android:angle="120"
+      android:angle="90"
       android:type="linear"
-
       />
 
 

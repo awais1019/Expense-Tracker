@@ -82,7 +82,7 @@ dependencies {
     // Saved state module for ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
-
+    ksp(libs.androidx.room.compiler)
 
 
 

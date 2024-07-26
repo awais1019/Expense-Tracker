@@ -12,9 +12,9 @@ import androidx.room.RoomDatabase
 )
  abstract  class DatabaseClass: RoomDatabase() {
 
-     abstract fun getUserDao():UserEntity
+     abstract fun getUserDao():UserDao
 
-     abstract fun getTransactionDao():TransactionEntity
+     abstract fun getTransactionDao():TransactionDao
 
      companion object{
          @Volatile

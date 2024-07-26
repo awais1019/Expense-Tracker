@@ -12,7 +12,7 @@ import androidx.room.Update
 interface UserDao {
 
     @Query("SELECT * FROM user_table WHERE username = :username")
-    suspend fun getUser(username:String): UserEntity?
+    suspend fun getUserByName(username:String): UserEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity):Long

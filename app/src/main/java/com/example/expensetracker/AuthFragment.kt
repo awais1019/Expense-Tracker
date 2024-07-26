@@ -12,7 +12,7 @@ import com.example.expensetracker.databinding.FragmentAuthBinding
 
 class AuthFragment : Fragment() {
 
-    lateinit var binding:FragmentAuthBinding
+    private lateinit var binding:FragmentAuthBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

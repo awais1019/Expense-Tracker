@@ -26,7 +26,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentLoginBinding.inflate(inflater, container, false)
-
         val database=DatabaseClass.getDatabaseInstance(requireContext())
         val userDao=database.getUserDao()
         val transactionDao=database.getTransactionDao()
@@ -34,7 +33,6 @@ class LoginFragment : Fragment() {
         val viewModelFactory= LoginViewModelFactory(repositoryClass)
         val loginViewModel= ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
         val navController=findNavController()
-        binding.btnLoginToAccount.setOnClickListener()
 
         binding.btnLoginToAccount.setOnClickListener()
         {
@@ -84,5 +82,11 @@ class LoginFragment : Fragment() {
          val password=binding.editTextPassword.text.toString()
          return UserEntity(username=username,password=password)
      }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding=null!!
+    }
 
 }

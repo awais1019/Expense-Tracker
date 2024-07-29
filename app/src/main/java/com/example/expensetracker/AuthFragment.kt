@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.NavAction
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.expensetracker.databinding.FragmentAuthBinding
 
@@ -13,22 +15,37 @@ import com.example.expensetracker.databinding.FragmentAuthBinding
 class AuthFragment : Fragment() {
 
     private lateinit var binding:FragmentAuthBinding
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentAuthBinding.inflate(inflater, container, false)
-        val navController=findNavController()
+        initializeNavController()
+        setListeners()
+
+        return binding.root
+    }
+
+    private fun setListeners() {
+
         binding.btnLogin.setOnClickListener()
         {
-          navController.navigate(R.id.action_authFragment_to_loginFragment2)
+            performAction(R.id.action_authFragment_to_loginFragment2)
         }
         binding.btnSignup.setOnClickListener()
         {
-            navController.navigate(R.id.action_authFragment_to_signupFragment2)
+            performAction(R.id.action_authFragment_to_signupFragment2)
         }
+    }
+    private fun performAction(action:Int)
+    {
+            navController.navigate(action)
+    }
 
-        return binding.root
+    private fun initializeNavController()
+    {
+        navController=findNavController()
     }
 
 

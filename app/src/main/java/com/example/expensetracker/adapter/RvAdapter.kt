@@ -41,7 +41,7 @@ class RvAdapter(
 
         private fun parseDateTime(dateTimeString: String): Date? {
 
-            val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val originalFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
             return originalFormat.parse(dateTimeString)
         }
 

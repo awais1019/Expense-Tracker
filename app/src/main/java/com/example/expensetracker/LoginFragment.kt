@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.expensetracker.databinding.FragmentLoginBinding
 import com.example.expensetracker.db.DatabaseClass
@@ -21,18 +22,16 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
 
      private lateinit var  binding: FragmentLoginBinding
+     private lateinit var navController: NavController
+     private lateinit var loginViewModel: LoginViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentLoginBinding.inflate(inflater, container, false)
-        val database=DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao=database.getUserDao()
-        val transactionDao=database.getTransactionDao()
-        val repositoryClass=RepositoryClass(userDao,transactionDao)
-        val viewModelFactory= LoginViewModelFactory(repositoryClass)
-        val loginViewModel= ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
-        val navController=findNavController()
+        setViewModel()
+        initializeNavController()
+
 
         binding.btnLoginToAccount.setOnClickListener()
         {
@@ -45,7 +44,7 @@ class LoginFragment : Fragment() {
                 ).show()
             } else {
                 lifecycleScope.launch {
-                    val isConfirmed = loginViewModel.loginConfirmed(user.username, user.password)
+                    val isConfirmed = loginViewModel.loginConfirmed(requireContext(), user.username, user.password)
 
                     if (isConfirmed) {
 
@@ -83,10 +82,19 @@ class LoginFragment : Fragment() {
          return UserEntity(username=username,password=password)
      }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding=null!!
+    private fun setViewModel()
+    {
+        val database=DatabaseClass.getDatabaseInstance(requireContext())
+        val userDao=database.getUserDao()
+        val transactionDao=database.getTransactionDao()
+        val repositoryClass=RepositoryClass(userDao,transactionDao)
+        val viewModelFactory= LoginViewModelFactory(repositoryClass)
+        loginViewModel= ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
     }
+    private fun initializeNavController()
+    {
+        navController=findNavController()
+    }
+
 
 }

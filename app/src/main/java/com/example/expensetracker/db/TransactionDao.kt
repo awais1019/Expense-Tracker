@@ -10,25 +10,24 @@ import androidx.room.Update
 
 @Dao
 interface TransactionDao {
-
     @Query("""
-        SELECT * FROM transaction_table 
-        WHERE type = :type 
-        AND strftime('%m', dateTime) = :month 
-        AND strftime('%Y', dateTime) = :year 
-        AND userId = :userId
-    """)
+    SELECT * FROM transaction_table 
+    WHERE type = :type 
+    AND substr(dateTime, 4, 2) = :month 
+    AND substr(dateTime, 7, 4) = :year 
+    AND userId = :userId
+""")
     fun getTransactionsByMonth(month: String, year: String, userId: Int, type: String): LiveData<List<TransactionEntity>>
-
     @Query("""
-        SELECT SUM(amount) 
-        FROM transaction_table 
-        WHERE type = :type 
-        AND strftime('%m', dateTime) = :month 
-        AND strftime('%Y', dateTime) = :year 
-        AND userId = :userId
-    """)
+    SELECT SUM(amount) 
+    FROM transaction_table 
+    WHERE type = :type 
+    AND substr(dateTime, 4, 2) = :month 
+    AND substr(dateTime, 7, 4) = :year 
+    AND userId = :userId
+""")
     fun getTotalAmount(month: String, year: String, userId: Int, type: String): LiveData<Double>
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: TransactionEntity)

@@ -56,11 +56,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
-            R.id.historyFragment -> {
-                navController.navigate(R.id.historyFragment)
-                true
-            }
-
+           
             R.id.transactionFragment -> {
                 navController.navigate(R.id.transactionFragment)
                 true

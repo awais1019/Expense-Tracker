@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.db.UserEntity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class SignUpViewModel(private val repositoryClass: RepositoryClass) : ViewModel() {
 
@@ -21,9 +24,18 @@ class SignUpViewModel(private val repositoryClass: RepositoryClass) : ViewModel(
     }
 
     fun insertUserIntoDatabase(user: UserEntity, confirmPassword: String): Boolean {
-
         if (user.username.isEmpty()) {
             _error.value = "Please enter Username"
+            return false
+        }
+
+
+        val userExists = runBlocking {
+            getUserByName(user.username) != null
+        }
+
+        if (userExists) {
+            _error.value = "Username already exists"
             return false
         }
 
@@ -50,4 +62,12 @@ class SignUpViewModel(private val repositoryClass: RepositoryClass) : ViewModel(
     private fun checkConfirmPassword(password: String, confirmPassword: String): Boolean {
         return password == confirmPassword
     }
+
+    private suspend fun getUserByName(username: String): UserEntity? {
+        return withContext(Dispatchers.IO) {
+            repositoryClass.getUserByName(username)
+        }
+    }
+
+
 }

@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class RvAdapter(
-    private val list: List<TransactionEntity>
+    private var list: List<TransactionEntity>
 ) : RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -57,5 +57,8 @@ class RvAdapter(
             return displayTimeFormat.format(date)
         }
     }
-
+    fun updateList(newList: List<TransactionEntity>) {
+        list = newList
+        notifyDataSetChanged()
+    }
 }

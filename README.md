@@ -37,7 +37,7 @@ The Expense Tracker app is an advanced solution designed to demonstrate the impl
   <img src="ScreenShots/startScreen.jpg" alt="Start Screen" width="250" height="450" style="margin-right: 20px;"/>
   <img src="ScreenShots/SignUpScreen.jpg" alt="Sign Up Screen" width="250" height="450" style="margin-right: 20px;"/>
   <img src="ScreenShots/LoginScreen.jpg" alt="Login Screen" width="250" height="450" style="margin-right: 20px;"/>
-  <img src="ScreenShots/HomeScreen.jpg" alt="Main Screen" width="250" height="450"/>
+  <img src="ScreenShots/homeScreen.jpg" alt="Home Screen" width="250" height="450"/>
 </p>
 
 ### Installation

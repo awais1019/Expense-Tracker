@@ -12,6 +12,8 @@ import com.example.expensetracker.R
 import com.example.expensetracker.databinding.FragmentTransactionBinding
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import com.example.expensetracker.viewModels.TransactionViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 

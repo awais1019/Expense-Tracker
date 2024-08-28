@@ -160,28 +160,29 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
         android:id="@+id/deleteRecord"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_delete"
-        android:drawablePadding="2dp"
-        android:fontFamily="@font/roboto_bold"
-        android:textAllCaps="false"
-        android:visibility="gone"
-        android:text="Delete Month Record"
-        android:textSize="14sp"
-        android:textColor="@color/dark_purple"
-        android:drawableTint="@color/dark_purple"
-        android:textStyle="bold"
-        android:paddingHorizontal="5dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="5dp"
         android:background="@color/white"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="2dp"
+        android:drawableTint="@color/dark_purple"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingHorizontal="5dp"
+        android:text="Delete Month Record"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_purple"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/chipGroup"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/chipGroup"
         app:layout_constraintTop_toTopOf="@id/chipGroup"
- />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"

@@ -42,7 +42,7 @@ The **Expense Tracker** app is an advanced Android application for managing and 
   <img src="ScreenShots/SignUpScreen.jpg" alt="Sign Up Screen"/>
   <img src="ScreenShots/LoginScreen.jpg" alt="Login Screen"/>
   <img src="ScreenShots/homeScreen.jpg" alt="Home Screen"/>
-  <img src="ScreenShots/transactionScreen.jpg" alt="Transactions Screen"/>
+  <img src="ScreenShots/TransactionScreen.jpg" alt="Transactions Screen"/>
   <img src="ScreenShots/historyScreen.jpg" alt="History Screen"/>
 </p>
 ### Installation

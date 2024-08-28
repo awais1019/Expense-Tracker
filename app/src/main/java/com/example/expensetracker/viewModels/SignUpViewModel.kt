@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.db.UserEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SignUpViewModel(private val repositoryClass: RepositoryClass) : ViewModel() {
+
+@HiltViewModel
+class SignUpViewModel @Inject constructor(private val repositoryClass: RepositoryClass) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     val error get() = _error

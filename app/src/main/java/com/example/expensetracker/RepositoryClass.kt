@@ -5,8 +5,9 @@ import com.example.expensetracker.db.TransactionDao
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.db.UserDao
 import com.example.expensetracker.db.UserEntity
+import javax.inject.Inject
 
-class RepositoryClass(private val userDao: UserDao, private val transactionDao: TransactionDao) {
+class RepositoryClass @Inject constructor(private val userDao: UserDao, private val transactionDao: TransactionDao) {
 
     suspend fun getUserByName(username: String): UserEntity?
     {

@@ -2,34 +2,33 @@ package com.example.expensetracker.ui.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.expensetracker.R
-import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.adapter.RvAdapter
 import com.example.expensetracker.databinding.FragmentHomeBinding
-import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
-import com.example.expensetracker.viewModels.TransactionViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: RvAdapter
-    private lateinit var transactionViewModel: TransactionViewModel
+    private val transactionViewModel: TransactionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setUptViewModel()
         setupRecyclerView()
         observeViewModel()
         setFloatingButtonListener()
@@ -40,14 +39,8 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-    private fun setUptViewModel() {
-        val database = DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao = database.getUserDao()
-        val transactionDao = database.getTransactionDao()
-        val repositoryClass = RepositoryClass(userDao, transactionDao)
-        val viewModelFactory = TransactionViewModelFactory(repositoryClass)
-        transactionViewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
-    }
+
+
 
     private fun setupRecyclerView(list: List<TransactionEntity> =emptyList()) {
         adapter = RvAdapter(list, clickListener ={transactionEntity -> itemClickListener(transactionEntity)  },

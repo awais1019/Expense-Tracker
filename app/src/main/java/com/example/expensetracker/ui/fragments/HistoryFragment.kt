@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.expensetracker.R
 import com.example.expensetracker.RepositoryClass
@@ -16,15 +17,15 @@ import com.example.expensetracker.databinding.FragmentHistoryBinding
 import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
-import com.example.expensetracker.viewModels.TransactionViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormatSymbols
 
-
+@AndroidEntryPoint
 class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var adapter: RvAdapter
-    private lateinit var transactionViewModel: TransactionViewModel
+    private val transactionViewModel: TransactionViewModel by viewModels()
     private var list= emptyArray<String>()
     private lateinit var month:String
     private lateinit var year:String
@@ -34,21 +35,13 @@ class HistoryFragment : Fragment() {
     ): View {
 
         binding=FragmentHistoryBinding.inflate(inflater,container,false)
-        setUptViewModel()
         transactionViewModel.getStoredMonthAndYear(requireContext())
         observeMonthYear()
         deleteRecord()
         return binding.root
     }
 
-    private fun setUptViewModel() {
-        val database = DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao = database.getUserDao()
-        val transactionDao = database.getTransactionDao()
-        val repositoryClass = RepositoryClass(userDao, transactionDao)
-        val viewModelFactory = TransactionViewModelFactory(repositoryClass)
-        transactionViewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
-    }
+
 
     private fun observeMonthYear()
     {

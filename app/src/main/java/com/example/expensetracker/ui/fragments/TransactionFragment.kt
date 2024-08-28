@@ -6,21 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.expensetracker.R
-import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.databinding.FragmentTransactionBinding
-import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
-import com.example.expensetracker.viewModels.TransactionViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TransactionFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentTransactionBinding
-    private lateinit var transactionViewModel: TransactionViewModel
+    private val transactionViewModel: TransactionViewModel by viewModels()
     private val args: TransactionFragmentArgs by navArgs()
     private val transaction: TransactionEntity? by lazy { args.transactionEntity }
 
@@ -31,21 +29,13 @@ class TransactionFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTransactionBinding.inflate(inflater, container, false)
-        setupViewModel()
         setAdapterForDropDown()
         populateFields()
         setupListeners()
         return binding.root
     }
 
-    private fun setupViewModel() {
-        val database = DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao = database.getUserDao()
-        val transactionDao = database.getTransactionDao()
-        val repositoryClass = RepositoryClass(userDao, transactionDao)
-        val viewModelFactory = TransactionViewModelFactory(repositoryClass)
-        transactionViewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
-    }
+
 
     private fun setupListeners() {
         binding.btnAddTransaction.setOnClickListener {

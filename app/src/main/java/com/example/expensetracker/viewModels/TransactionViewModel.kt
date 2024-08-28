@@ -8,13 +8,16 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.db.TransactionEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
 
-class TransactionViewModel(private val repository: RepositoryClass) : ViewModel() {
+@HiltViewModel
+class TransactionViewModel @Inject constructor(private val repository: RepositoryClass) : ViewModel() {
 
     val currentDay: LiveData<String> = liveData {
         emit(getCurrentDay())

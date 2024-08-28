@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
+    id("com.google.dagger.hilt.android")
+
+
 }
 
 android {
@@ -84,8 +87,8 @@ dependencies {
 
     ksp(libs.androidx.room.compiler)
 
-
-
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.android)
 
 
 }

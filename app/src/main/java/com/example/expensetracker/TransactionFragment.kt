@@ -6,34 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.expensetracker.databinding.FragmentTransactionBinding
 import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.viewModels.TransactionViewModel
-import com.example.expensetracker.viewModels.TransactionViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TransactionFragment : Fragment() {
     private lateinit var binding: FragmentTransactionBinding
-    private lateinit var transactionViewModel: TransactionViewModel
+    private val transactionViewModel: TransactionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTransactionBinding.inflate(inflater, container, false)
-        setupViewModel()
         setupListeners()
         return binding.root
     }
 
-    private fun setupViewModel() {
-        val database = DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao = database.getUserDao()
-        val transactionDao = database.getTransactionDao()
-        val repositoryClass = RepositoryClass(userDao, transactionDao)
-        val viewModelFactory = TransactionViewModelFactory(repositoryClass)
-        transactionViewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
-    }
+
 
     private fun setupListeners() {
         binding.btnAddTransaction.setOnClickListener {

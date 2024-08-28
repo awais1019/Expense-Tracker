@@ -13,22 +13,6 @@ import androidx.room.RoomDatabase
  abstract  class DatabaseClass: RoomDatabase() {
 
      abstract fun getUserDao():UserDao
-
      abstract fun getTransactionDao():TransactionDao
-
-     companion object{
-         @Volatile
-         var instance:DatabaseClass?=null
-         fun getDatabaseInstance(context: Context):DatabaseClass{
-            return instance?:synchronized(this){
-                val newInstance= Room.databaseBuilder(context.applicationContext,
-                    DatabaseClass::class.java,
-                    "Expense_app_database"
-                    ).build()
-                instance=newInstance
-                newInstance
-            }
-         }
-     }
 
 }

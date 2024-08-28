@@ -5,26 +5,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.expensetracker.adapter.RvAdapter
 import com.example.expensetracker.databinding.FragmentHomeBinding
 import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
-import com.example.expensetracker.viewModels.TransactionViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: RvAdapter
-    private lateinit var transactionViewModel: TransactionViewModel
+    private val transactionViewModel: TransactionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setUptViewModel()
         setupRecyclerView()
         observeViewModel()
         setListeners()
@@ -34,14 +36,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun setUptViewModel() {
-        val database = DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao = database.getUserDao()
-        val transactionDao = database.getTransactionDao()
-        val repositoryClass = RepositoryClass(userDao, transactionDao)
-        val viewModelFactory = TransactionViewModelFactory(repositoryClass)
-        transactionViewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
-    }
+
 
     private fun setupRecyclerView(list: List<TransactionEntity> =emptyList()) {
         adapter = RvAdapter(list)

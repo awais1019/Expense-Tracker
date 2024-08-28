@@ -1,20 +1,17 @@
 package com.example.expensetracker.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.expensetracker.R
-import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.databinding.FragmentLoginBinding
-import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.db.UserEntity
 import com.example.expensetracker.viewModels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint

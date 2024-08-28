@@ -13,7 +13,6 @@ import com.example.expensetracker.adapter.RvAdapter
 import com.example.expensetracker.databinding.FragmentHomeBinding
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
-import com.example.expensetracker.viewModels.TransactionViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -9,8 +9,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.expensetracker.R
 import com.example.expensetracker.databinding.FragmentAuthBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AuthFragment : Fragment() {
 
     private lateinit var binding:FragmentAuthBinding

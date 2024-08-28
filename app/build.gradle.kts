@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.ksp)
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.dagger.hilt.android")
+
+
 }
 
 android {
@@ -86,8 +89,8 @@ dependencies {
 
     ksp(libs.androidx.room.compiler)
 
-
-
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.android)
 
 
 }

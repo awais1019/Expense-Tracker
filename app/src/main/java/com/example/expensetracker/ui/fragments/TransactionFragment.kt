@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.expensetracker.R
@@ -15,11 +16,14 @@ import com.example.expensetracker.databinding.FragmentTransactionBinding
 import com.example.expensetracker.db.DatabaseClass
 import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import com.example.expensetracker.viewModels.TransactionViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+@AndroidEntryPoint
 class TransactionFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentTransactionBinding
+    private val transactionViewModel: TransactionViewModel by viewModels()
     private lateinit var transactionViewModel: TransactionViewModel
     private val args: TransactionFragmentArgs by navArgs()
     private val transaction: TransactionEntity? by lazy { args.transactionEntity }
@@ -38,14 +42,7 @@ class TransactionFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun setupViewModel() {
-        val database = DatabaseClass.getDatabaseInstance(requireContext())
-        val userDao = database.getUserDao()
-        val transactionDao = database.getTransactionDao()
-        val repositoryClass = RepositoryClass(userDao, transactionDao)
-        val viewModelFactory = TransactionViewModelFactory(repositoryClass)
-        transactionViewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
-    }
+
 
     private fun setupListeners() {
         binding.btnAddTransaction.setOnClickListener {

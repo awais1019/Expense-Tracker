@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
 class TransactionViewModel(private val repository: RepositoryClass) : ViewModel() {
 
     val currentDay: LiveData<String> = liveData {
@@ -21,6 +22,19 @@ class TransactionViewModel(private val repository: RepositoryClass) : ViewModel(
 
     val currentDate: LiveData<String> = liveData {
         emit(getCurrentDate())
+    }
+
+
+    private var _totalMonthAndYears=MutableLiveData<List<String>>()
+    val saveYearMonth get() = _totalMonthAndYears
+
+
+    fun getStoredMonthAndYear(context: Context) {
+        viewModelScope.launch {
+            repository.getMonthAndYears(getUserId(context)).observeForever { monthYearList ->
+                _totalMonthAndYears.postValue(monthYearList)
+            }
+        }
     }
 
     private val _error = MutableLiveData<String>()
@@ -60,35 +74,78 @@ class TransactionViewModel(private val repository: RepositoryClass) : ViewModel(
     }
 
     fun insertValues(title: String, amount: String, type: String, context: Context): Boolean {
+
+        if(!performValidations(title,amount,type,context))
+        {
+          return false
+        }
+        else
+        {
+            val convertedAmount = convertStringToDouble(amount)
+            val currentDateTime = getCurrentTimeDate()
+            val userId = getUserId(context)
+            val transaction = TransactionEntity(
+                title = title,
+                amount = convertedAmount,
+                type = type,
+                userId = userId,
+                dateTime = currentDateTime
+            )
+            insertTransaction(transaction)
+            return true
+        }
+
+    }
+
+    fun updateValues(id:Int,title: String, amount: String, type: String, context: Context):Boolean
+    {
+        if(!performValidations(title,amount,type,context)) {
+            return false
+        }
+        else
+        {
+            val convertedAmount = convertStringToDouble(amount)
+            val currentDateTime = getCurrentTimeDate()
+            val userId = getUserId(context)
+            val transaction = TransactionEntity(
+                id=id,
+                title = title,
+                amount = convertedAmount,
+                type = type,
+                userId = userId,
+                dateTime = currentDateTime
+            )
+            updateTransaction(transaction)
+            return true
+        }
+    }
+
+
+
+    private fun performValidations(title: String, amount: String, type: String,context: Context): Boolean {
         if (title.isEmpty()) {
             _error.value = "Title cannot be empty"
             return false
         }
-        if (amount.isEmpty() || amount.toDoubleOrNull() == null || amount.toDouble() <= 0) {
+
+        val amountValue = amount.toDoubleOrNull()
+        if (amountValue == null || amountValue <= 0) {
             _error.value = "Amount cannot be empty or less than or equal to zero"
             return false
         }
+        if(type.isEmpty())
+        {
+            _error.value = "Must select a transaction type"
+            return false
+        }
 
-       /* val amountValue = amount.toDouble()
-        updateRemainingIncome()
-        val currentRemainingIncome = remainingIncome.value ?: 0.0
-
-        if (type == "Expense" && amountValue > currentRemainingIncome) {
+        val sharePref=context.getSharedPreferences("remaining_amount",Context.MODE_PRIVATE)
+        val getAmount=sharePref.getFloat("remaining_amount",0.0f)
+        if (type == "Expense" && amountValue > getAmount) {
             _error.value = "Insufficient Balance"
             return false
-        }*/
+        }
 
-        val convertedAmount = convertStringToDouble(amount)
-        val currentDateTime = getCurrentTimeDate()
-        val userId = getUserId(context)
-        val transaction = TransactionEntity(
-            title = title,
-            amount = convertedAmount,
-            type = type,
-            userId = userId,
-            dateTime = currentDateTime
-        )
-        insertTransaction(transaction)
         return true
     }
 
@@ -111,6 +168,33 @@ class TransactionViewModel(private val repository: RepositoryClass) : ViewModel(
         return sharedPref.getInt("user_id", -1)
     }
 
+      fun saveRemainingAmount(context: Context){
+        val remainingAmount = remainingIncome.value ?: 0.0
+        val currentMonth=getCurrentMonth()
+        if(remainingAmount>0)
+        {
+            val sharedPref = context.getSharedPreferences("remaining_amount", Context.MODE_PRIVATE)
+            sharedPref.edit().putFloat("remaining_amount", remainingAmount.toFloat()).apply()
+            sharedPref.edit().putString("month",currentMonth).apply()
+        }
+
+
+    }
+
+     fun getSaveIncome(context: Context)
+    {
+        val sharePref=context.getSharedPreferences("remaining_amount",Context.MODE_PRIVATE)
+        val getMonth=sharePref.getString("month","")
+        if(getCurrentMonth()!=getMonth)
+        {
+            val getAmount=sharePref.getFloat("remaining_amount",0.0f)
+            insertValues(title="Previous Month Savings",amount=getAmount.toString(),type="Income",context)
+            saveRemainingAmount(context)
+        }
+
+
+    }
+
     private fun getCurrentTimeDate(): String {
         val format = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
         return format.format(Date())
@@ -122,7 +206,7 @@ class TransactionViewModel(private val repository: RepositoryClass) : ViewModel(
         }
     }
 
-    fun updateTransaction(transaction: TransactionEntity) {
+    private fun updateTransaction(transaction: TransactionEntity) {
         viewModelScope.launch {
             repository.updateTransaction(transaction)
         }
@@ -134,7 +218,7 @@ class TransactionViewModel(private val repository: RepositoryClass) : ViewModel(
         }
     }
 
-    private fun updateRemainingIncome() {
+    private fun updateRemainingIncome(){
         val income = _totalIncome.value ?: 0.0
         val expense = _totalExpense.value ?: 0.0
         _remainingIncome.value = income - expense
@@ -149,5 +233,13 @@ class TransactionViewModel(private val repository: RepositoryClass) : ViewModel(
     fun getCurrentYear(): String {
         val format = SimpleDateFormat("yyyy", Locale.getDefault())
         return format.format(Date())
+    }
+
+    fun deleteWholeMonthRecord(month: String,year: String,context: Context)
+    {
+        val id=getUserId(context)
+        viewModelScope.launch {
+            repository.deleteFullMonthRecord(id,month,year)
+        }
     }
 }

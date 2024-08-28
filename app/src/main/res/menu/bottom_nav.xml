@@ -6,8 +6,8 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         />
-    <item android:title="Add"
-        android:id="@+id/transactionFragment"
-        android:icon="@drawable/ic_add"
+    <item android:title="History"
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/ic_history"
         />
 </menu>

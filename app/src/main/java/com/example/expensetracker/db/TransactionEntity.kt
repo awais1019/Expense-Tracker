@@ -1,12 +1,14 @@
 package com.example.expensetracker.db
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
+@Parcelize
 @Entity(
     tableName = "transaction_table",
     foreignKeys =[ForeignKey(
@@ -24,4 +26,4 @@ data class TransactionEntity(
     val dateTime: String,
     val userId: Int
 
-)
+): Parcelable

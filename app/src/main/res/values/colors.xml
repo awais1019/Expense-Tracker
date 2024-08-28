@@ -9,10 +9,24 @@
     <color name="dark_medium2__purple">#b1bbf9</color>
     <color name="light2_purple">#e4d6f0</color>
     <color name="light_grey">#F0F0F0</color>
+    <color name="lightGray">#F9F9F9</color>
+    <color name="mediumGray">#D1D1D1</color>
+    <color name="mediumGrey">#707070</color>
+    <color name="lightMediumGray">#80D1D1D1</color>
+    <color name="darkGray">#4B4B4B</color>
+    <color name="dark">#313C44</color>
+    <color name="darker">#151B20</color>
 
     <color name="cardBackgroundColor">#F9F9F9</color>
     <!-- Primary Text Color -->
     <color name="primaryTextColor">#333333</color>
     <!-- Secondary Text Color -->
     <color name="secondaryTextColor">#FF5722</color>
+
+
+    <color name="chipSelectedColor">@color/light2_purple</color>
+    <color name="chipColor">@color/lightMediumGray</color>
+
+    <color name="chipSelectedTextColor">@color/dark_purple</color>
+    <color name="chipTextColor">@color/darker</color>
 </resources>

@@ -5,11 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expensetracker.databinding.RecycleViewItemBinding
 import com.example.expensetracker.db.TransactionEntity
+import com.example.expensetracker.ui.fragments.TransactionFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RvAdapter(
-    private var list: List<TransactionEntity>
+    private var list: List<TransactionEntity>,
+    private val clickListener:((TransactionEntity)->Unit)?=null,
+    private val doubleClickListener:((TransactionEntity)->Unit)?=null
 ) : RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,6 +40,16 @@ class RvAdapter(
                 binding.textViewDate.text = formatDate(it)
                 binding.textViewTime.text = formatTime(it)
             }
+
+            binding.root.setOnClickListener()
+            {
+                clickListener?.invoke(transaction)
+            }
+             binding.root.setOnLongClickListener()
+             {
+                 doubleClickListener?.invoke(transaction)
+                 true
+             }
         }
 
         private fun parseDateTime(dateTimeString: String): Date? {

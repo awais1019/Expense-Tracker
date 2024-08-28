@@ -7,4 +7,10 @@
     </style>
 
     <style name="Theme.ExpenseTracker" parent="Base.Theme.ExpenseTracker" />
+
+
+    <style name="customChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+    </style>
 </resources>

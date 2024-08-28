@@ -1,46 +1,50 @@
 ## Expense Tracker
 
-### Description
+### Overview
 
-The Expense Tracker app is an advanced solution designed to demonstrate the implementation of the Room database and MVVM architecture in Android development. This app focuses on creating, managing, and tracking expenses and incomes with a user-friendly interface. It allows users to efficiently handle their financial transactions, providing a robust local storage solution and a clean, intuitive design.
+The **Expense Tracker** app is an advanced Android application for managing and tracking financial transactions. Utilizing Room database and MVVM architecture, this app provides an efficient way to handle financial data with a user-friendly interface and robust local storage.
 
-### Features
+### Key Features
 
 - **User Authentication:**
-
-  - Secure sign-up and sign-in functionality to manage user accounts.
+  - Secure sign-up and sign-in functionalities.
 
 - **Transaction Management:**
-
-  - Create transactions.
-  - Support for two types of transactions: Income and Expenses.
-  - Display transactions in a card view with details and updated summaries of income and expenses.
+  - Create, categorize, and view transactions.
+  - Detailed views and updated summaries.
 
 - **Local Storage:**
-
-  - Persistent storage of transactions using the Room database for offline access.
+  - Persistent transaction storage using Room.
 
 - **User Interface:**
-  - Simple and user-friendly design to enhance user experience.
+  - Clean and intuitive design.
 
-### Technologies Used
+- **Item Management:**
+  - **Current Month Transactions:**
+    - **Delete:** Double-click on a transaction to remove it.
+    - **Update:** Single-click to modify details.
+  - **History Management:**
+    - Delete all records for a specific month.
 
-- **Kotlin:** The primary programming language used for Android development.
-- **XML:** Utilized for designing UI layouts.
-- **Room:** Local database for storing transactions.
-- **MVVM:** Architecture pattern used to structure the application, promoting separation of concerns and improving code maintainability.
-- **Android Studio:** Integrated Development Environment (IDE) for Android development.
+### Technologies
+
+- **Kotlin:** Main programming language.
+- **XML:** UI layout design.
+- **Room:** Local database.
+- **MVVM:** Architecture pattern.
+- **Hilt:** Dependency injection.
+- **Android Studio:** IDE for development.
 
 ### Screenshots
 
-<p float="left">
-  <img src="ScreenShots/startScreen.jpg" alt="Start Screen" width="250" height="450" style="margin-right: 20px;"/>
-  <img src="ScreenShots/SignUpScreen.jpg" alt="Sign Up Screen" width="250" height="450" style="margin-right: 20px;"/>
-  <img src="ScreenShots/LoginScreen.jpg" alt="Login Screen" width="250" height="450" style="margin-right: 20px;"/>
-  <img src="ScreenShots/homeScreen.jpg" alt="Home Screen" width="250" height="450" style="margin-right: 20px;"/>
-  <img src="ScreenShots/TransactionScreen.jpg" alt="Transactions Screen" width="250" height="450"/>
+<p align="center">
+  <img src="ScreenShots/startScreen.jpg" alt="Start Screen"/>
+  <img src="ScreenShots/SignUpScreen.jpg" alt="Sign Up Screen"/>
+  <img src="ScreenShots/LoginScreen.jpg" alt="Login Screen"/>
+  <img src="ScreenShots/homeScreen.jpg" alt="Home Screen"/>
+  <img src="ScreenShots/transactionScreen.jpg" alt="Transactions Screen"/>
+  <img src="ScreenShots/historyScreen.jpg" alt="History Screen"/>
 </p>
-
 ### Installation
 
 To set up the project locally, follow these steps:
@@ -66,16 +70,9 @@ To set up the project locally, follow these steps:
    - Connect an Android device or start an emulator.
    - Click "Run" > "Run 'app'" or press `Shift+F10`.
 
-### Future Updates
-
-- **Update and Delete Functionality:** Implement features to update and delete records.
-- **History and Graphs:** Introduce history and graphical representation of each month's transactions.
-- **Enhanced UI/UX:** Continuously improve the user interface for a better user experience.
 
 ### Future Goals
 
-- **Update and Delete Records:** Add features to update and delete transaction records.
-- **Transaction History:** Implement functionality to view the history of transactions.
 - **Monthly Graphs:** Introduce graphical representation of monthly transactions for enhanced insights.
 
 ### Learning MVVM and Best Practices

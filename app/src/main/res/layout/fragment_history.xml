@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="6dp"
+    android:padding="6dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.HistoryFragment">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="Month and Year"
+        app:layout_constraintBottom_toTopOf="@id/cardView"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:id="@+id/autoCompleteTextView"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:layout_height="match_parent"
+            tools:ignore="LabelFor">
+        </AutoCompleteTextView>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/cardView"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/cardBackgroundColor"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chipGroup"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/labelRemainingAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="parent"
+                android:text="Savings: 8000"
+                android:textColor="@color/dark_purple"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/circularProgressIndicator"
+                app:layout_constraintEnd_toEndOf="@+id/circularProgressIndicator"
+                app:layout_constraintStart_toStartOf="@+id/circularProgressIndicator"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/circularProgressIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="59"
+                app:showAnimationBehavior="inward"
+                app:indicatorColor="@color/secondaryTextColor"
+                app:indicatorInset="10dp"
+                app:layout_constraintBottom_toTopOf="@id/labelExpenses"
+                app:indicatorSize="180dp"
+                app:indicatorTrackGapSize="0dp"
+                app:layout_constraintTop_toBottomOf="@id/labelRemainingAmount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:trackColor="@color/dark_purple"
+                app:trackCornerRadius="3dp"
+                app:trackThickness="26dp" />
+
+
+            <TextView
+                android:id="@+id/labelExpenses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Expenses: 4000"
+                app:layout_constraintTop_toBottomOf="@id/circularProgressIndicator"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/labelDeposits"
+                app:layout_constraintEnd_toEndOf="@id/circularProgressIndicator"
+                app:layout_constraintStart_toStartOf="@id/circularProgressIndicator" />
+
+
+            <TextView
+                android:id="@+id/labelDeposits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="Deposits: 2000"
+                android:textColor="@color/darker"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="12dp"
+        app:checkedChip="@id/chipExpenses"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:selectionRequired="true"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipExpenses"
+            style="@style/customChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expenses" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDeposits"
+            style="@style/customChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deposits" />
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:id="@+id/deleteRecord"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="2dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:text="Delete Month Record"
+        android:textSize="14sp"
+        android:textColor="@color/dark_purple"
+        android:drawableTint="@color/dark_purple"
+        android:textStyle="bold"
+        android:paddingHorizontal="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/chipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/chipGroup"
+        app:layout_constraintTop_toTopOf="@id/chipGroup"
+ />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chipGroup"
+        tools:itemCount="2"
+        tools:listitem="@layout/recycle_view_item" />
+
+    <TextView
+        android:id="@+id/textViewNoRecords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="No History Available "
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="20sp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

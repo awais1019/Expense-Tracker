@@ -50,4 +50,17 @@ class RepositoryClass(private val userDao: UserDao, private val transactionDao: 
         return transactionDao.getTotalAmount(month, year, userId, type)
     }
 
+    fun  getMonthAndYears(userId:Int):LiveData<List<String>>
+    {
+        return transactionDao.getStoredMonthAndYear(userId)
+    }
+
+    suspend fun deleteFullMonthRecord(id:Int,month:String,year:String)
+    {
+        transactionDao.deleteFullMonthRecord(id,month,year)
+    }
+
+
+
+
 }

@@ -29,6 +29,10 @@ interface TransactionDao {
     fun getTotalAmount(month: String, year: String, userId: Int, type: String): LiveData<Double>
 
 
+    @Query("SELECT DISTINCT substr(dateTime, 4, 2) || ' ' || substr(dateTime, 7, 4) FROM transaction_table WHERE userId = :id")
+    fun getStoredMonthAndYear(id: Int): LiveData<List<String>>
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: TransactionEntity)
 
@@ -37,4 +41,9 @@ interface TransactionDao {
 
     @Delete
     suspend fun deleteTransaction(transaction: TransactionEntity)
+
+
+    @Query("Delete  From  transaction_table where userId=:id and substr(dateTime, 4, 2) = :month and substr(dateTime, 7, 4) = :year")
+    suspend fun deleteFullMonthRecord(id:Int,month:String,year:String)
+
 }

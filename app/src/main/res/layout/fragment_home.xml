@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/cardBackgroundColor"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".ui.fragments.HomeFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -142,36 +142,36 @@
     </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/textViewExpenses"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:letterSpacing="0.02"
-        android:text="Expenses"
-        android:textColor="@color/dark_medium__purple"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardView" />
-
-
-    <TextView
-        android:id="@+id/textViewDeposits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:letterSpacing="0.02"
-        android:text="Deposits"
-        android:textColor="@color/dark_medium__purple"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewExpenses"
+        android:layout_marginTop="12dp"
+        app:checkedChip="@id/chipExpenses"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toEndOf="@id/textViewExpenses"
-        app:layout_constraintTop_toTopOf="@+id/textViewExpenses"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:selectionRequired="true"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipExpenses"
+            style="@style/customChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expenses" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDeposits"
+            style="@style/customChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deposits" />
+
+
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -180,7 +180,6 @@
         app:layout_constraintWidth_percent=".95"
         app:cardElevation="5dp"
         app:layout_constraintHeight_percent=".62"
-        app:layout_constraintTop_toBottomOf="@id/textViewDeposits"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -222,11 +221,27 @@
 
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="Add"
+        android:focusable="true"
+        android:src="@drawable/ic_add"
+        android:layout_marginEnd="16dp"
+        app:tint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/dark_purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="24dp"
+/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

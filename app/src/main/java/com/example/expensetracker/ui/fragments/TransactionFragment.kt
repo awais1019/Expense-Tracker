@@ -1,20 +1,30 @@
-package com.example.expensetracker
+package com.example.expensetracker.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.example.expensetracker.R
+import com.example.expensetracker.RepositoryClass
 import com.example.expensetracker.databinding.FragmentTransactionBinding
 import com.example.expensetracker.db.DatabaseClass
+import com.example.expensetracker.db.TransactionEntity
 import com.example.expensetracker.viewModels.TransactionViewModel
 import com.example.expensetracker.viewModels.TransactionViewModelFactory
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class TransactionFragment : Fragment() {
+class TransactionFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentTransactionBinding
     private lateinit var transactionViewModel: TransactionViewModel
+    private val args: TransactionFragmentArgs by navArgs()
+    private val transaction: TransactionEntity? by lazy { args.transactionEntity }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +32,8 @@ class TransactionFragment : Fragment() {
     ): View {
         binding = FragmentTransactionBinding.inflate(inflater, container, false)
         setupViewModel()
+        setAdapterForDropDown()
+        populateFields()
         setupListeners()
         return binding.root
     }
@@ -42,25 +54,49 @@ class TransactionFragment : Fragment() {
     }
 
     private fun handleAddTransaction() {
+
         val title = binding.editTextPurpose.text.toString()
         val amount = binding.editAmount.text.toString()
-        val type = binding.transactionTypeSpinner.selectedItem.toString()
-        if (transactionViewModel.insertValues(title, amount, type, requireContext())) {
-            showSuccessToast()
-            clearInputFields()
-        } else {
-            observeError()
+        val type = binding.autoCompleteTextView.text.toString()
+
+        if(transaction!=null)
+        {
+            if(transactionViewModel.updateValues(transaction!!.id,title,amount,type,requireContext()))
+            {
+                showSuccessToast("Transaction Updated")
+                clearInputFields()
+            }
+            else
+            {
+                observeError()
+            }
         }
+        else
+        {
+            if (transactionViewModel.insertValues(title, amount, type, requireContext())) {
+                showSuccessToast("Transaction Added")
+                clearInputFields()
+            } else {
+                observeError()
+            }
+        }
+
     }
 
-    private fun showSuccessToast() {
-        Toast.makeText(requireContext(), "Transaction Added", Toast.LENGTH_SHORT).show()
+    private fun showSuccessToast(msg:String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun clearInputFields() {
         binding.editTextPurpose.text?.clear()
         binding.editAmount.text?.clear()
-        binding.transactionTypeSpinner.setSelection(0)
+    }
+
+    private fun setAdapterForDropDown()
+    {
+        val list= arrayListOf("Income","Expense")
+        val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_text, list)
+        binding.autoCompleteTextView.setAdapter(adapter)
     }
 
     private fun observeError() {
@@ -68,4 +104,14 @@ class TransactionFragment : Fragment() {
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun populateFields() {
+        transaction?.let {
+            binding.editTextPurpose.setText(it.title)
+            binding.editAmount.setText(it.amount.toString())
+            binding.autoCompleteTextView.setText(it.type, false)
+        }
+    }
+
+
 }

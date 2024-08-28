@@ -1,0 +1,12 @@
+
+<TextView
+    android:layout_width="match_parent"
+    android:textSize="16sp"
+    android:textColor="@color/dark"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:textStyle="bold"
+    android:text="01 2024"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
+

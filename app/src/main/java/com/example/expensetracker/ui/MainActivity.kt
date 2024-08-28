@@ -1,20 +1,14 @@
-package com.example.expensetracker
+package com.example.expensetracker.ui
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.expensetracker.R
 import com.example.expensetracker.databinding.ActivityMainBinding
-import com.example.expensetracker.databinding.FragmentLoginBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,22 +39,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
     private fun itemNavigation(item: MenuItem): Boolean {
        return when (item.itemId) {
             R.id.homeFragment -> {
                 navController.navigate(R.id.homeFragment)
-
                 true
             }
-
-           
-            R.id.transactionFragment -> {
-                navController.navigate(R.id.transactionFragment)
-                true
-            }
+           R.id.historyFragment->
+           {
+               navController.navigate(R.id.historyFragment4)
+               true
+           }
 
             else -> false
         }
